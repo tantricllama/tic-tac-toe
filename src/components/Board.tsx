@@ -1,8 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import Cell from './Cell.jsx';
+import Cell from './Cell';
 
-class Board extends React.Component {
+type Props = {
+  board: string[][];
+}
+
+class Board extends React.Component<Props> {
   render() {
     const { board } = this.props;
 
@@ -17,7 +21,7 @@ class Board extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: Props) {
   return {
     board: state.board
   };

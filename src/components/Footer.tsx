@@ -1,8 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { newGame } from '../actions';
 
-class Footer extends React.Component {
+export interface Props {
+  player: string;
+  winner?: string;
+  newGame: any;
+}
+
+class Footer extends React.Component<Props> {
   render() {
     const { player, winner, newGame } = this.props;
 
@@ -28,14 +34,14 @@ class Footer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: Props) {
   return {
     player: state.player,
     winner: state.winner
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
     newGame: () => dispatch(newGame())
   };

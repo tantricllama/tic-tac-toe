@@ -1,10 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { takeTurn } from '../actions';
 
-class Cell extends React.Component {
+type Props = {
+  value: string;
+  row: number;
+  col: number;
+  takeTurn: any;
+  winner: string;
+  winningCells: number[][];
+}
+
+class Cell extends React.Component<Props> {
   render() {
     const { value, takeTurn, row, col, winner, winningCells } = this.props;
     var classes = {
@@ -25,22 +33,16 @@ class Cell extends React.Component {
   }
 }
 
-Cell.propTypes = {
-  value: PropTypes.string.isRequired,
-  row: PropTypes.number.isRequired,
-  col: PropTypes.number.isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: Props) {
   return {
     winner: state.winner,
     winningCells: state.winningCells
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    takeTurn: (row, col) => dispatch(takeTurn(row, col))
+    takeTurn: (row: number, col: number) => dispatch(takeTurn(row, col))
   };
 }
 

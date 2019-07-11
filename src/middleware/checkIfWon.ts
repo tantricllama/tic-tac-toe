@@ -1,12 +1,11 @@
-import {
-  TAKE_TURN,
-  gameWon
-} from '../actions';
+import { Store } from 'redux';
+import { gameWon } from '../actions';
+import { TAKE_TURN, GameActions } from '../types';
 
 // Checks to see if the current player has won
-export default function checkIfWon(store) {
-  return function(next) {
-    return function(action) {
+export default function checkIfWon(store: Store) {
+  return function(next: any) {
+    return function(action: GameActions) {
       if (action.type === TAKE_TURN) {
         const { board, player } = store.getState();
 
@@ -37,7 +36,7 @@ export default function checkIfWon(store) {
   }
 }
 
-function rowHasWon(row, col, board, player) {
+function rowHasWon(row: number, col: number, board: string[][], player: string) {
   var cells = [[row, col]];
 
   for (var c = 0; c < 3; c++) {
@@ -54,7 +53,7 @@ function rowHasWon(row, col, board, player) {
   return cells;
 }
 
-function colHasWon(row, col, board, player) {
+function colHasWon(row: number, col: number, board: string[][], player: string) {
   var cells = [[row, col]];
 
   for (var r = 0; r < 3; r++) {
@@ -71,7 +70,7 @@ function colHasWon(row, col, board, player) {
   return cells;
 }
 
-function diagonalHasWon(row, col, board, player) {
+function diagonalHasWon(row: number, col: number, board: string[][], player: string) {
   // Top left to bottom right
   if (
     ((row === 0 && col === 0) || board[0][0] === player) &&

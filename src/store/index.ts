@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Middleware } from 'redux';
 import logger from 'redux-logger';
 import rootReducer from '../reducers';
 import checkIfCellIsFilled from '../middleware/checkIfCellIsFilled';
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(...middlewares)
+  applyMiddleware(...middlewares as Middleware[])
 );
 
 export default store;

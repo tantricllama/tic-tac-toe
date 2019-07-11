@@ -2,11 +2,23 @@ import {
   NEW_GAME,
   TAKE_TURN,
   GAME_WON,
-  GAME_OVER
-} from '../actions';
-import initialState from './initialState';
+  GAME_OVER,
+  GameState,
+  GameActions
+} from '../types';
 
-function rootReducer(state = initialState, action) {
+const initialState: GameState = {
+  board: [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ],
+  player: 'X',
+  winner: null,
+  winningCells: []
+};
+
+function rootReducer(state = initialState, action: GameActions) {
   switch (action.type) {
     case NEW_GAME:
       return {
