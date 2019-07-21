@@ -1,24 +1,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { newGame } from '../actions';
+import { newGame, switchPlayer } from '../actions';
 
 export interface Props {
+  current: string;
   player: string;
   winner?: string;
   newGame: any;
+  switchPlayer: any;
 }
 
 class Footer extends React.Component<Props> {
   render() {
-    const { player, winner, newGame } = this.props;
+    const { current, player, winner, newGame, switchPlayer } = this.props;
 
     var footerText;
     if (winner === null) {
-      footerText = <p>Player: <strong className={player}>{player}</strong></p>;
+      footerText = <p>You are <strong className={player}>{player}</strong>, it is <strong className={current}>{current}</strong>'s turn</p>;
     } else if (winner === '') {
       footerText = <p>Game Over, nobody won!</p>;
     } else {
-      footerText = <p><strong className={winner}>{winner}</strong> won!</p>;
+      var text = winner === player ? 'win' : 'lost';
+      footerText = <p><strong className={winner}>You {text}!</strong></p>;
     }
 
     return (
@@ -27,7 +30,7 @@ class Footer extends React.Component<Props> {
           {footerText}
         </div>
         <div className="right">
-          <p><span onClick={newGame}>Reset</span></p>
+          <p><span onClick={switchPlayer}>Switch</span> / <span onClick={newGame}>Reset</span></p>
         </div>
       </div>
     );
@@ -36,6 +39,7 @@ class Footer extends React.Component<Props> {
 
 function mapStateToProps(state: Props) {
   return {
+    current: state.current,
     player: state.player,
     winner: state.winner
   };
@@ -43,7 +47,8 @@ function mapStateToProps(state: Props) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    newGame: () => dispatch(newGame())
+    newGame: () => dispatch(newGame()),
+    switchPlayer: () => dispatch(switchPlayer())
   };
 }
 
